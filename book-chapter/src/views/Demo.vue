@@ -1,6 +1,7 @@
 <template>
-  <div >
+  <div>
     <span class="icon-bookmark"></span>
+    <span class="text"> ABCDEFG</span>
   </div>
 </template>
 
@@ -11,5 +12,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .text {
+    font-family: 'Days One';
+    font-size: 100px;
+    color: orange;
+    /*font*/
+  }
 </style>
