@@ -1,4 +1,5 @@
 <template>
+
   <div class="ebook">
     <div class="title-wrapper">
       <div class="left">
@@ -36,7 +37,7 @@
         <div class="icon-bright icon"></div>
       </div>
       <div class="icon-wrapper">
-        <div class="icon-a icon"></div>
+        <div class="icon-more icon"></div>
       </div>
     </div>
   </div>
@@ -113,24 +114,6 @@ export default {
 
     }
 
-    .menu-wrapper {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      z-index: 100;
-      width: 100%;
-      height: 100%;
-      box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, .15); /* 0 , 垂直方向, 水平方向 */
-      .icon-wrapper {
-        flex: 1;
-        @include center;
-
-        .icon-progress {
-          font-size: px2rem(24);
-        }
-      }
-    }
-
     .right {
       flex: 1;
       display: flex;
@@ -150,7 +133,21 @@ export default {
 
     }
   }
+  .menu-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: px2rem(48);
+    box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, .15); /* 0 , 垂直方向, 水平方向 */
+    background: whitesmoke;
+    .icon-wrapper {
+      flex: 1;
+      @include center;
 
+    }
+  }
   .read-wrapper {
     .mask {
       position: absolute;
@@ -173,7 +170,5 @@ export default {
       }
     }
   }
-
-
 }
 </style>
