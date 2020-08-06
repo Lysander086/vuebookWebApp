@@ -126,17 +126,7 @@ export default {
       }
     }
 
-    &.slide-down-enter, &slide-down-leave-to {
-      transform: translate3d(0, -100%, 0);
-    }
 
-    &.slide-down-enter-to, &slide-down-leave {
-      transform: translate3d(0, 0, 0);
-    }
-
-    &.slide-down-enter-active, &slide-down-leave-active {
-      transition: all .1s linear;
-    }
   }
 
   .read-wrapper {
@@ -194,17 +184,7 @@ export default {
 
     }
 
-    &.slide-up-enter, &slide-up-leave-to {
-      transform: translate3d(0, 100%, 0);
-    }
 
-    &.slide-up-enter-to, &slide-up-leave {
-      transform: translate3d(0, 0, 0);
-    }
-
-    &.slide-up-enter-active, &slide-up-leave-active {
-      transition: all .1s linear;
-    }
   }
 }
 
