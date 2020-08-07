@@ -12,19 +12,38 @@
 <script>
 import {mapGetters} from 'vuex'
 
+const getters = {
+  a: () => 1
+  , b: () => 2
+}
+
+
+function fn(keys) { //  仿造mapGetters
+  const data = {}
+  keys.forEach(key => {
+    if (getters.hasOwnProperty(key)) {
+      data[key] = getters[key]
+    }
+  })
+  return data
+}
+
 export default {
   computed: {
-    ...mapGetters(['test'])
+    ...mapGetters(['test']),
+    ...fn(['a', 'b', 'c'])
   },
+  methods: {},
   name: 'App',
   beforeMount() {
-    console.log('beforeMounted: ', this.$store.state.book.test)
-    console.log( 'using vuex', this.test)
+    // console.log('beforeMounted: ', this.$store.state.book.test)
+    // console.log('using vuex', this.test)
   },
   mounted() {
     this.$store.dispatch('setTest', 10).then(() => {
       console.log(this.$store.state.book.test)
     })
+    console.log('using fn()', this.a, this.b, this.c)
   },
 
 }
