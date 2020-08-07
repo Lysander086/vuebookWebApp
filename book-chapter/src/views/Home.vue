@@ -7,15 +7,15 @@
 
 <script>
 export default {
-  name: "Demo"
-}
+  name: "Home"
+};
 </script>
 
 <style scoped>
-  .text {
-    font-family: 'Days One';
-    font-size: 100px;
-    color: orange;
-    /*font*/
-  }
+.text {
+  font-family: "Days One";
+  font-size: 100px;
+  color: orange;
+  /*font*/
+}
 </style>

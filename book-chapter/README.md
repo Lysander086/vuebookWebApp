@@ -1,4 +1,8 @@
-# 2-vue
+# book-chapter
+
+## 用到的安装指令
+cnpm i -g @vue/devtools
+cnpm i --save-dev @vue/devtools
 
 ## Project setup
 ```
