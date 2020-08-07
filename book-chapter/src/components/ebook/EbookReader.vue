@@ -1,8 +1,8 @@
 <template>
-    <div class="ebook-reader">
-        <!--        {{$router.params.fileName}}-->
-        <div id="read"></div>
-    </div>
+  <div class="ebook-reader">
+    <!--        {{$router.params.fileName}}-->
+    <div id="read"></div>
+  </div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ global.ePub = Epub
 export default {
   name: "EbookReader",
   computed: {
-    ...mapGetters(['fileName'])
+    ...mapGetters(['fileName', 'menuVisible'])
   },
   methods: {
     prevPage() {
@@ -25,7 +25,8 @@ export default {
       this.rendition && this.rendition.next()
     },
     toggleTitleAndMenu() {
-
+      // console.log('triggered')
+      this.$store.dispatch('setMenuVisible', !this.menuVisible)
     },
 
     initEpub() {
@@ -62,6 +63,8 @@ export default {
     }
   },
   mounted() {
+    // 测试用url如下
+    // http://localhost:8080/ebook/History%7Ctry
     const fileName = this.$route.params.fileName.split('|').join('/')
     this.$store.dispatch('setFileName', fileName).then(() => {
       this.initEpub()
