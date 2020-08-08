@@ -8,7 +8,7 @@
 <script>
 import Epub from 'epubjs'
 import {ebookMixin} from "@/utils/mixin"
-import {getFontFamily, getFontSize, getTheme, saveFontFamily, saveFontSize} from "@/utils/localStorage"
+import {getFontFamily, getFontSize, getTheme, saveFontFamily, saveFontSize, getLocation} from "@/utils/localStorage"
 import {addCss} from "@/utils/book"
 
 global.ePub = Epub
@@ -71,15 +71,31 @@ export default {
       })
       this.rendition.themes.select(defaultTheme)
     },
-    initEpub() {
-      const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
-      this.book = new Epub(url)
-      this.setCurrentBook(this.book)
+
+    initRendition() {
       this.rendition = this.book.renderTo('read', {
         width: innerWidth,
         height: innerHeight,
         method: 'default'
       })
+      const location = getLocation(this.fileName)
+      this.display(location, () => {
+        this.initTheme()
+        this.initFontSize()
+        this.initFontFamily()
+        this.initGlobalStyle()
+      })
+      this.rendition.hooks.content.register(contents => {
+        Promise.all([
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`),
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/cabin.css`),
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`),
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
+        ]).then(() => {
+        })
+      })
+    },
+    initGesture() {
       this.rendition.display().then(() => {
         this.initFontSize()
         this.initFontFamily()
@@ -106,20 +122,19 @@ export default {
         }
         event.preventDefault()
         event.stopPropagation()
-
       })
-      this.rendition.hooks.content.register(contents => {
-        `${process.env.VUE_APP_MODE}` === 'dev' && this.rendition.display(5) // 指定显示位置, 方便调试字体
-        // 查看addStylesheet源码,得知实现方式是要引用一个href链接, 因此需要将字体文件存放到nginx服务器中
-        // contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`)
-        Promise.all([
-          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`),
-          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/cabin.css`),
-          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`),
-          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
-        ]).then(() => {
-          console.log('font loading complete')
-        })
+    },
+    initEpub() {
+      const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
+      this.book = new Epub(url)
+      this.setCurrentBook(this.book)
+      this.initRendition()
+      this.initGesture()
+      this.book.ready.then(() => {
+        return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
+      }).then(locations =>{
+        // console.log(locations)
+        this.setBookAvailable(true)
       })
     }
   },

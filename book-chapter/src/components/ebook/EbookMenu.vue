@@ -19,6 +19,7 @@
     <ebook-setting-font></ebook-setting-font>
     <ebook-setting-font-popup></ebook-setting-font-popup>
     <ebook-setting-theme></ebook-setting-theme>
+    <ebook-setting-progress></ebook-setting-progress>
   </div>
 </template>
 
@@ -27,6 +28,7 @@ import {ebookMixin} from "@/utils/mixin"
 import EbookSettingFont from "@/components/ebook/EbookSettingFont"
 import EbookSettingFontPopup from "@/components/ebook/EbookSettingFontPopup"
 import EbookSettingTheme from "@/components/ebook/EbookSettingTheme"
+import EbookSettingProgress from "@/components/ebook/EbookSettingProgress"
 
 export default {
   mixins: [ebookMixin], // 组件服用
@@ -38,8 +40,7 @@ export default {
   },
 
   components: {
-    // ComName: () => import( "./views/ExperienceDetails")
-    EbookSettingFont, EbookSettingFontPopup, EbookSettingTheme
+    EbookSettingFont, EbookSettingFontPopup, EbookSettingTheme, EbookSettingProgress
   },
   methods: {
     showSetting(key) {
