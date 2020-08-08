@@ -9,7 +9,7 @@
           <span class="icon-progress" @click="showSetting(2)"></span>
         </div>
         <div class="icon-wrapper">
-          <span class="icon-bright" @click="showSetting(1)"></span>
+          <span class="icon-private-see" @click="showSetting(1)"></span>
         </div>
         <div class="icon-wrapper">
           <span class="icon-a" @click="showSetting(0)">A</span>
@@ -18,6 +18,7 @@
     </transition>
     <ebook-setting-font></ebook-setting-font>
     <ebook-setting-font-popup></ebook-setting-font-popup>
+    <ebook-setting-theme></ebook-setting-theme>
   </div>
 </template>
 
@@ -25,6 +26,8 @@
 import {ebookMixin} from "@/utils/mixin"
 import EbookSettingFont from "@/components/ebook/EbookSettingFont"
 import EbookSettingFontPopup from "@/components/ebook/EbookSettingFontPopup"
+import EbookSettingTheme from "@/components/ebook/EbookSettingTheme"
+
 export default {
   mixins: [ebookMixin], // 组件服用
   name: "EbookMenu",
@@ -36,7 +39,7 @@ export default {
 
   components: {
     // ComName: () => import( "./views/ExperienceDetails")
-    EbookSettingFont,EbookSettingFontPopup
+    EbookSettingFont, EbookSettingFontPopup, EbookSettingTheme
   },
   methods: {
     showSetting(key) {

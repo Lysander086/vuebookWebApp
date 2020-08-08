@@ -11,7 +11,7 @@ const messages = {
   cn
 }
 
-// const locale = 'en'?
+// const locale = 'en'
 let locale = getLocale()
 if (!locale) {
   locale = 'en'

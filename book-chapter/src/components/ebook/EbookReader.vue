@@ -16,6 +16,7 @@ global.ePub = Epub
 export default {
   name: "EbookReader",
   mixins: [ebookMixin],
+
   methods: {
     prevPage() {
       this.rendition && this.rendition.prev()
@@ -56,6 +57,13 @@ export default {
         this.setDefaultFontFamily(font)
       }
     },
+    // 
+    initTheme() {
+      this.themeList.forEach(theme => {
+        this.rendition.themes.register(theme.name, theme.style) // 注册主题方式
+      })
+      this.rendition.themes.select(this.defaultTheme)
+    },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
       this.book = new Epub(url)
@@ -68,6 +76,7 @@ export default {
       this.rendition.display().then(() => {
         this.initFontSize()
         this.initFontFamily()
+        this.initTheme()
       })
       // console.log(this.rendition)
       this.rendition.on('touchstart', event => {
@@ -123,6 +132,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 
 </style>

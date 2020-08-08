@@ -9,10 +9,21 @@ const routes = [
     path: '/',
     alias: '/ebook',
     component: () => import('@/views/ebook/index.vue'),
+    // only for developing
+    beforeEnter: (to, from, next) => {
+      // console.log(to)
+      if (to.params && !to.params.fileName) {
+        console.log('developing mode')
+        to.params.fileName = 'History|try'
+      }
+      next()
+    },
+    // END: only for developing
     children: [
       {
         path: ':fileName',
-        component: () => import('@/components/ebook/EbookReader')
+        component: () => import('@/components/ebook/EbookReader'),
+
       }
     ]
   }
