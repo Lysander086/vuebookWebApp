@@ -27,7 +27,7 @@ export default {
     toggleTitleAndMenu() {
       this.menuVisible && this.setSettingVisible(-1)
       this.setMenuVisible(!this.menuVisible)
-
+      this.fontFamilyVisible && this.setFontFamilyVisible(false)
     },
     hideTitleAndMenu() {
       // console.log('hideTitleAndMenu')
@@ -67,11 +67,19 @@ export default {
         event.stopPropagation()
 
       })
+      this.rendition.hooks.content.register(contents => {
+        this.rendition.display(20) // 指定显示位置, 方便调试字体
+        // 查看addStylesheet源码,得知实现方式是要引用一个href链接, 因此需要将字体文件存放到nginx服务器中
+        // contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`)
+        contents.addStylesheet('http://localhost:8081/fonts/daysOne.css')
+        contents.addStylesheet('http://localhost:8081/fonts/cabin.css')
+        contents.addStylesheet('http://localhost:8081/fonts/montserrat.css')
+        contents.addStylesheet('http://localhost:8081/fonts/tangerine.css')
+      })
     }
   },
   mounted() {
-    // 测试用url如下
-    // http://localhost:8080/ebook/History%7Ctry
+    // 测试用url: http://localhost:8080/ebook/History%7Ctry
     const fileName = this.$route.params.fileName.split('|').join('/')
     this.setFileName(fileName).then(() => {
       this.initEpub()

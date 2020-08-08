@@ -1,29 +1,30 @@
 <template>
-  <div>
-    <transition name="popup-slide-up">
-      <div class="ebook-popup-list" v-show="fontFamilyVisible ">
-        <div class="ebook-popup-title">
-          <div class="ebook-popup-title-icon" @click="hide">
-            <span class="icon-down2"></span>
-          </div>
-          <span class="ebook-popup-title-text">选择字体</span>
+  <!-- <div> -->
+  <transition name="popup-slide-up">
+    <div class="ebook-popup-list" v-show="fontFamilyVisible">
+      <div class="ebook-popup-title">
+        <div class="ebook-popup-title-icon" @click="hide">
+          <span class="icon-down2"></span>
         </div>
-        <div class="ebook-popup-list-wrapper">
-          <div class="ebook-popup-item" v-for="(item , index ) in fontFamilyList" :key="index">
-            <div class="ebook-popup-item-text" :class="{'selected' : isSelected(item)}"> {{item.font}}</div>
-            <div class="ebook-popup-item-check" v-if="isSelected(item)">
-              <span class="icon-check"></span>
-            </div>
+        <span class="ebook-popup-title-text">选择字体</span>
+      </div>
+      <div class="ebook-popup-list-wrapper">
+        <div class="ebook-popup-item" v-for="(item, index) in fontFamilyList" :key="index"
+             @click="setFontFamily(item.font)">
+          <div class="ebook-popup-item-text" :class="{'selected': isSelected(item)}">{{item.font}}</div>
+          <div class="ebook-popup-item-check" v-if="isSelected(item)">
+            <span class="icon-check"></span>
           </div>
         </div>
       </div>
-    </transition>
-  </div>
+    </div>
+  </transition>
+  <!-- </div> -->
 </template>
 
 <script>
-import {ebookMixin} from "@/utils/mixin"
-import {FONT_FAMILY, FONT_SIZE_LIST} from "@/utils/book"
+import {ebookMixin} from '@/utils/mixin'
+import {FONT_FAMILY} from '@/utils/book'
 
 export default {
   name: 'EbookSettingPopup',
@@ -31,13 +32,18 @@ export default {
   data() {
     return {
       fontFamilyList: FONT_FAMILY
-
-    };
-  },
-  components: {
-    // ComName: () => import( "./views/ExperienceDetails")
+    }
   },
   methods: {
+    setFontFamily(font) {
+      this.setDefaultFontFamily(font)
+      if (font === 'Default') {
+        this.currentBook.rendition.themes.font('Times New Roman')
+      } else {
+        this.currentBook.rendition.themes.font(font)
+      }
+
+    },
     isSelected(item) {
       return this.defaultFontFamily === item.font
     },
@@ -45,9 +51,8 @@ export default {
       this.setFontFamilyVisible(false)
     }
   }
-};
+}
 </script>
-
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import "src/assets/styles/global";
@@ -66,7 +71,7 @@ export default {
     padding: px2rem(15);
     box-sizing: border-box;
     border-bottom: px2rem(1) solid #b8b9bb;
-    /*text-align: center;*/
+    text-align: center;
     @include center;
 
     .ebook-popup-title-icon {
@@ -96,7 +101,7 @@ export default {
         text-align: left;
 
         &.selected {
-          color: #1bb9b8;
+          color: #346cb9;
           font-weight: bold;
         }
       }
@@ -106,8 +111,7 @@ export default {
         text-align: right;
         font-size: px2rem(14);
         font-weight: bold;
-        color: #1bb9b8;
-        font-weight: bold;
+        color: #346cb9;
       }
     }
   }
