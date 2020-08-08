@@ -8,7 +8,7 @@
 <script>
 import Epub from 'epubjs'
 import {ebookMixin} from "@/utils/mixin"
-import {getFontFamily, getFontSize, saveFontFamily, saveFontSize} from "@/utils/localStorage"
+import {getFontFamily, getFontSize, getTheme, saveFontFamily, saveFontSize} from "@/utils/localStorage"
 
 global.ePub = Epub
 
@@ -57,12 +57,18 @@ export default {
         this.setDefaultFontFamily(font)
       }
     },
-    // 
+    //
     initTheme() {
+      let defaultTheme = getTheme(this.fileName)
+      if (!defaultTheme) {
+        defaultTheme = this.themeList[0].name
+        this.setDefaultTheme(defaultTheme)
+        saveTheme(this.fileName, defaultTheme)
+      }
       this.themeList.forEach(theme => {
         this.rendition.themes.register(theme.name, theme.style) // 注册主题方式
       })
-      this.rendition.themes.select(this.defaultTheme)
+      this.rendition.themes.select(defaultTheme)
     },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
