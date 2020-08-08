@@ -40,21 +40,23 @@ export default {
   methods: {
     onProgressChange(progress) {
       this.setProgress(progress).then(() => {
-        this.displayProgress()
+        this.displayProgress() // 开启拖动的时候百分比变化
         this.updateProgressBg()
       })
     },
-    // 拖动过程中调用的方法
-    onProgressInput(progress) {
+    onProgressInput(progress) {    // 拖动过程中调用的方法
       this.setProgress(progress).then(() => {
-        this.updateProgressBg()
+        // this.displayProgress() // 拖动的时候内容也发上变化
+        this.updateProgressBg() // 拖动时进度条线颜色裱花
       })
     },
-    displayProgress() {
+    displayProgress() { // 展示当前进度所在的页面
+      //
       const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
-      this.display(cfi)
+      this.currentBook.rendition.display(cfi)
+      // this.display(cfi)
     },
-    updateProgressBg() {
+    updateProgressBg() { // 更新进度条拖动的线颜色
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
     },
     prevSection() {

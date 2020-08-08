@@ -158,7 +158,7 @@ export const ebookMixin = {
           addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
           break
       }
-      console.log('style files load complete')
+      console.log('theme style files load complete')
     },
     refreshLocation() {
       const currentLocation = this.currentBook.rendition.currentLocation()
