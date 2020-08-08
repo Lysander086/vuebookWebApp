@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     showSetting(key) {
+      key === this.settingVisible && (key = -1) // 重复点按则隐藏
       this.setSettingVisible(key)
     }
   }
