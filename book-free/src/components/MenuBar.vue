@@ -1,8 +1,7 @@
 <template>
   <div class="menu-bar">
     <transition name="slide-up">
-      <div class="menu-wrapper" :class="{'hide-box-shadow': ifSettingShow || !ifTitleAndMenuShow}"
-           v-show="ifTitleAndMenuShow">
+      <div class="menu-wrapper" :class="{'hide-box-shadow': ifSettingShow || !ifTitleAndMenuShow}" v-show="ifTitleAndMenuShow">
         <div class="icon-wrapper">
           <span class="icon-menu icon" @click="showSetting(3)"></span>
         </div>

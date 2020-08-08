@@ -7,28 +7,31 @@
 
 <script>
 import Epub from 'epubjs'
-import {mapGetters} from 'vuex'
+import {ebookMixin} from "@/utils/mixin"
 
 global.ePub = Epub
 
 
 export default {
   name: "EbookReader",
-  computed: {
-    ...mapGetters(['fileName', 'menuVisible'])
-  },
+  mixins: [ebookMixin],
   methods: {
     prevPage() {
       this.rendition && this.rendition.prev()
+      this.hideTitleAndMenu()
     },
     nextPage() {
       this.rendition && this.rendition.next()
+      this.hideTitleAndMenu()
     },
     toggleTitleAndMenu() {
-      // console.log('triggered')
-      this.$store.dispatch('setMenuVisible', !this.menuVisible)
+      this.setMenuVisible(!this.menuVisible)
+      // console.log('menuVisible: ', this.menuVisible)
     },
-
+    hideTitleAndMenu() {
+      // console.log('hideTitleAndMenu')
+      this.setMenuVisible(false)
+    },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
       this.book = new Epub(url)
@@ -48,7 +51,7 @@ export default {
       this.rendition.on('touchend', event => {
         const offsetX = event.changedTouches[0].clientX - this.touchStartX
         const time = event.timeStamp - this.touchStartTime
-        console.log(offsetX, time)
+        // console.log(offsetX, time)
         if (time < 500 && offsetX > 40) {
           this.prevPage()
         } else if (time < 500 && offsetX < -40) {
@@ -66,7 +69,7 @@ export default {
     // 测试用url如下
     // http://localhost:8080/ebook/History%7Ctry
     const fileName = this.$route.params.fileName.split('|').join('/')
-    this.$store.dispatch('setFileName', fileName).then(() => {
+    this.setFileName(fileName).then(() => {
       this.initEpub()
     })
 
