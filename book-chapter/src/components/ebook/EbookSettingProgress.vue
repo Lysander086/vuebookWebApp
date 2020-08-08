@@ -24,7 +24,8 @@
           </div>
         </div>
         <div class="text-wrapper">
-          <!--          <span class="progress-section-text">{{getSectionName}}</span> -->
+          <!-- 获取的章节名称  -->
+          <span class="progress-section-text">{{getSectionName}}</span>
           <span>({{bookAvailable ? progress + '%' : '加载中...'}})</span>
         </div>
       </div>
@@ -33,10 +34,21 @@
 </template>
 
 <script>
-import {ebookMixin} from '../../utils/mixin'
+import {ebookMixin} from '@/utils/mixin'
 
 export default {
   mixins: [ebookMixin],
+  computed: {
+    getSectionName() {
+      if (this.section) {
+        const sectionInfo = this.currentBook.section(this.section)
+        if (sectionInfo && sectionInfo.href) {
+          return this.currentBook.navigation.get(sectionInfo.href).label
+        }
+      }
+      // return ''
+    }
+  },
   methods: {
     onProgressChange(progress) {
       this.setProgress(progress).then(() => {
@@ -77,6 +89,7 @@ export default {
       }
     }
   },
+
   updated() {
     this.updateProgressBg()
   }
