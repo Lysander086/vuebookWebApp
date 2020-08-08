@@ -8,7 +8,15 @@
 <script>
 import Epub from 'epubjs'
 import {ebookMixin} from "@/utils/mixin"
-import {getFontFamily, getFontSize, getTheme, saveFontFamily, saveFontSize, getLocation} from "@/utils/localStorage"
+import {
+  getFontFamily,
+  getFontSize,
+  getTheme,
+  saveFontFamily,
+  saveFontSize,
+  getLocation,
+  saveTheme
+} from "@/utils/localStorage"
 import {addCss} from "@/utils/book"
 
 global.ePub = Epub
@@ -118,7 +126,7 @@ export default {
         } else if (time < 500 && offsetX < -40) {
           this.nextPage()
         } else {
-          this.toggleTitleAndMenu() 
+          this.toggleTitleAndMenu()
         }
         event.preventDefault() // 禁止事件的默认方法调用
         event.stopPropagation() // 禁止事件传播
@@ -132,7 +140,7 @@ export default {
       this.initGesture()
       this.book.ready.then(() => {
         return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
-      }).then(locations =>{
+      }).then(locations => {
         // console.log(locations)
         this.setBookAvailable(true)
       })

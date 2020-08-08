@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="text-wrapper">
-          <span class="progress-section-text">{{getSectionName}}</span>
+          <!--          <span class="progress-section-text">{{getSectionName}}</span> -->
           <span>({{bookAvailable ? progress + '%' : '加载中...'}})</span>
         </div>
       </div>
@@ -33,30 +33,27 @@
 </template>
 
 <script>
-import {ebookMixin} from '@/utils/mixin'
+import {ebookMixin} from '../../utils/mixin'
 
 export default {
   mixins: [ebookMixin],
   methods: {
     onProgressChange(progress) {
       this.setProgress(progress).then(() => {
-        this.displayProgress() // 开启拖动的时候百分比变化
+        this.displayProgress()
         this.updateProgressBg()
       })
     },
-    onProgressInput(progress) {    // 拖动过程中调用的方法
+    onProgressInput(progress) {
       this.setProgress(progress).then(() => {
-        // this.displayProgress() // 拖动的时候内容也发上变化
-        this.updateProgressBg() // 拖动时进度条线颜色裱花
+        this.updateProgressBg()
       })
     },
-    displayProgress() { // 展示当前进度所在的页面
-      //
+    displayProgress() {
       const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
-      this.currentBook.rendition.display(cfi)
-      // this.display(cfi)
+      this.display(cfi)
     },
-    updateProgressBg() { // 更新进度条拖动的线颜色
+    updateProgressBg() {
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
     },
     prevSection() {
@@ -87,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "src/assets/styles/global";
+@import "../../assets/styles/global";
 
 .setting-wrapper {
   position: absolute;
