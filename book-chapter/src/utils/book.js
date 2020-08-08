@@ -86,6 +86,7 @@ export function removeCss(href) {
   const links = document.getElementsByTagName('link')
   for (let i = links.length; i >= 0; i--) {
     const link = links[i]
+    // console.log('zero',link && link.getAttribute('href'), 'href: ', href)
     if (link && link.getAttribute('href') && link.getAttribute('href') === href) {
       link.parentNode.removeChild(link)
     }
