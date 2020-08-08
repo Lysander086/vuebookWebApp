@@ -111,17 +111,17 @@ export default {
       // const offset
       this.rendition.on('touchend', event => {
         const offsetX = event.changedTouches[0].clientX - this.touchStartX
-        const time = event.timeStamp - this.touchStartTime
+        const time = event.timeStamp - this.touchStartTime  // 计算消耗时间
         // console.log(offsetX, time)
-        if (time < 500 && offsetX > 40) {
+        if (time < 500 && offsetX > 40) { // 划过时间小于500ms, 划过距离大于40则进行翻页
           this.prevPage()
         } else if (time < 500 && offsetX < -40) {
           this.nextPage()
         } else {
-          this.toggleTitleAndMenu()
+          this.toggleTitleAndMenu() 
         }
-        event.preventDefault()
-        event.stopPropagation()
+        event.preventDefault() // 禁止事件的默认方法调用
+        event.stopPropagation() // 禁止事件传播
       })
     },
     initEpub() {
