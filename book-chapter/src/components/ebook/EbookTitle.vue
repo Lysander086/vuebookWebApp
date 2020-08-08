@@ -32,7 +32,7 @@ export default {
   data() {
     return {};
   },
-  component: {
+  components: {
     // ComName: () => import( "./views/ExperienceDetails")
   },
   methods: {

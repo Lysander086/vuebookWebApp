@@ -25,12 +25,13 @@ export default {
       this.hideTitleAndMenu()
     },
     toggleTitleAndMenu() {
+      this.menuVisible && this.setSettingVisible(-1)
       this.setMenuVisible(!this.menuVisible)
-      // console.log('menuVisible: ', this.menuVisible)
     },
     hideTitleAndMenu() {
       // console.log('hideTitleAndMenu')
       this.setMenuVisible(false)
+      this.settingVisible(-1)
     },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
@@ -77,7 +78,7 @@ export default {
   data() {
     return {};
   },
-  component: {
+  components: {
     // ComName: () => import( "./views/ExperienceDetails")
   },
 };
