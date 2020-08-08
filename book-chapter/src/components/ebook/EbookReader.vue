@@ -31,11 +31,12 @@ export default {
     hideTitleAndMenu() {
       // console.log('hideTitleAndMenu')
       this.setMenuVisible(false)
-      this.settingVisible(-1)
+      this.setSettingVisible(-1)
     },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
       this.book = new Epub(url)
+      this.setCurrentBook(this.book)
       this.rendition = this.book.renderTo('read', {
         width: innerWidth,
         height: innerHeight,

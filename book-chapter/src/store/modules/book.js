@@ -4,6 +4,7 @@ const book = {
     menuVisible: false,
     settingVisible: -1, // -1: 不显示, 0: 字号设置, 1: 主题, 2: 进度, 3: 目录
     defaultFontSize: 16,
+    currentBook: null,
     defaultFontFamily: 'Default',
     fontFamilyVisible: false,
     defaultTheme: 'Default',
@@ -11,7 +12,6 @@ const book = {
     progress: 0,
     section: 0,
     isPaginating: true,
-    currentBook: null,
     navigation: null,
     cover: null,
     metadata: null,
