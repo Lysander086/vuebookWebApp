@@ -8,6 +8,7 @@
 <script>
 import Epub from 'epubjs'
 import {ebookMixin} from "@/utils/mixin"
+import {getFontFamily, getFontSize, saveFontFamily, saveFontSize} from "@/utils/localStorage"
 
 global.ePub = Epub
 
@@ -35,6 +36,26 @@ export default {
       this.setSettingVisible(-1)
       this.setFontFamilyVisible(false)
     },
+    // 实现字体大小缓存
+    initFontSize() {
+      let fontSize = getFontSize(this.fileName)
+      if (!fontSize) {
+        saveFontSize(this.fileName, this.defaultFontSize)
+      } else {
+        this.rendition.themes.fontSize(fontSize)
+        this.setDefaultFontSize(fontSize)
+      }
+    },
+    // 实现字体缓存
+    initFontFamily() {
+      let font = getFontFamily(this.fileName)
+      if (!font) {
+        saveFontFamily(this.fileName, this.defaultFontFamily)
+      } else {
+        this.rendition.themes.font(font)
+        this.setDefaultFontFamily(font)
+      }
+    },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
       this.book = new Epub(url)
@@ -44,7 +65,10 @@ export default {
         height: innerHeight,
         method: 'default'
       })
-      this.rendition.display()
+      this.rendition.display().then(() => {
+        this.initFontSize()
+        this.initFontFamily()
+      })
       // console.log(this.rendition)
       this.rendition.on('touchstart', event => {
         // console.log(event)
