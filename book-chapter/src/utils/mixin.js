@@ -1,6 +1,6 @@
-import { mapGetters, mapActions } from 'vuex'
-import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book'
-import { getBookmark, saveLocation, getBookShelf, saveBookShelf } from './localStorage'
+import {mapGetters, mapActions} from 'vuex'
+import {themeList, addCss, removeAllCss, getReadTimeByMinute} from './book'
+import {getBookmark, saveLocation, getBookShelf, saveBookShelf} from './localStorage'
 // import { gotoBookDetail, appendAddToShelf, computeId, removeAddFromShelf } from './store'
 // import { shelf } from '../api/store'
 
@@ -158,6 +158,7 @@ export const ebookMixin = {
           addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
           break
       }
+      console.log('style files load complete')
     },
     refreshLocation() {
       const currentLocation = this.currentBook.rendition.currentLocation()

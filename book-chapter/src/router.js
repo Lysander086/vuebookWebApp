@@ -9,16 +9,12 @@ const routes = [
     path: '/',
     alias: '/ebook',
     component: () => import('@/views/ebook/index.vue'),
-    // only for developing
     beforeEnter: (to, from, next) => {
-      // console.log(to)
-      if (to.params && !to.params.fileName) {
-        console.log('developing mode')
+      if (`${process.env.VUE_APP_MODE}` === 'dev' && to.params && !to.params.fileName) {
         to.params.fileName = 'History|try'
       }
       next()
     },
-    // END: only for developing
     children: [
       {
         path: ':fileName',

@@ -9,6 +9,7 @@
 import Epub from 'epubjs'
 import {ebookMixin} from "@/utils/mixin"
 import {getFontFamily, getFontSize, getTheme, saveFontFamily, saveFontSize} from "@/utils/localStorage"
+import {addCss} from "@/utils/book"
 
 global.ePub = Epub
 
@@ -83,6 +84,7 @@ export default {
         this.initFontSize()
         this.initFontFamily()
         this.initTheme()
+        this.initGlobalStyle()
       })
       // console.log(this.rendition)
       this.rendition.on('touchstart', event => {
@@ -107,7 +109,7 @@ export default {
 
       })
       this.rendition.hooks.content.register(contents => {
-        this.rendition.display(5) // 指定显示位置, 方便调试字体
+        `${process.env.VUE_APP_MODE}` === 'dev' && this.rendition.display(5) // 指定显示位置, 方便调试字体
         // 查看addStylesheet源码,得知实现方式是要引用一个href链接, 因此需要将字体文件存放到nginx服务器中
         // contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`)
         Promise.all([

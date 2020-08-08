@@ -72,10 +72,12 @@ export function themeList(vue) {
   ]
 }
 
+// 动态添加css
 export function addCss(href) {
   const link = document.createElement('link')
-  link.setAttribute('rel', 'stylesheet')
-  link.setAttribute('type', 'text/css')
+  //  对link标签做属性设置
+  link.setAttribute('rel', 'stylesheet') // 表示为样式表
+  link.setAttribute('type', 'text/css') // 表示css文件
   link.setAttribute('href', href)
   document.getElementsByTagName('head')[0].appendChild(link)
 }
