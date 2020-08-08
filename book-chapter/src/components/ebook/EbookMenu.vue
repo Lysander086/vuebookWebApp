@@ -17,13 +17,14 @@
       </div>
     </transition>
     <ebook-setting-font></ebook-setting-font>
+    <ebook-setting-font-popup></ebook-setting-font-popup>
   </div>
 </template>
 
 <script>
 import {ebookMixin} from "@/utils/mixin"
 import EbookSettingFont from "@/components/ebook/EbookSettingFont"
-
+import EbookSettingFontPopup from "@/components/ebook/EbookSettingFontPopup"
 export default {
   mixins: [ebookMixin], // 组件服用
   name: "EbookMenu",
@@ -35,7 +36,7 @@ export default {
 
   components: {
     // ComName: () => import( "./views/ExperienceDetails")
-    EbookSettingFont
+    EbookSettingFont,EbookSettingFontPopup
   },
   methods: {
     showSetting(key) {

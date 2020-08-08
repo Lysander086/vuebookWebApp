@@ -33,14 +33,14 @@
 
 <script>
 import {ebookMixin} from "@/utils/mixin"
-import {FONT_SIZE_LIST} from "@/utils/book"
+import { FONT_SIZE_LIST} from "@/utils/book"
 
 export default {
   name: 'EbookSettingFont',
   mixins: [ebookMixin],
   data() {
     return {
-      fontSizeList: FONT_SIZE_LIST
+      fontSizeList: FONT_SIZE_LIST,
     };
   },
   components: {
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     showFontFamilyPopup() {
-      console.log('ok')
+      this.setFontFamilyVisible(true)
     },
     setFontSize(fontSize) {
       this.setDefaultFontSize(fontSize)

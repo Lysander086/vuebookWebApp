@@ -27,11 +27,13 @@ export default {
     toggleTitleAndMenu() {
       this.menuVisible && this.setSettingVisible(-1)
       this.setMenuVisible(!this.menuVisible)
+
     },
     hideTitleAndMenu() {
       // console.log('hideTitleAndMenu')
       this.setMenuVisible(false)
       this.setSettingVisible(-1)
+      this.setFontFamilyVisible(false)
     },
     initEpub() {
       const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
