@@ -68,13 +68,17 @@ export default {
 
       })
       this.rendition.hooks.content.register(contents => {
-        this.rendition.display(20) // 指定显示位置, 方便调试字体
+        this.rendition.display(5) // 指定显示位置, 方便调试字体
         // 查看addStylesheet源码,得知实现方式是要引用一个href链接, 因此需要将字体文件存放到nginx服务器中
         // contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`)
-        contents.addStylesheet('http://localhost:8081/fonts/daysOne.css')
-        contents.addStylesheet('http://localhost:8081/fonts/cabin.css')
-        contents.addStylesheet('http://localhost:8081/fonts/montserrat.css')
-        contents.addStylesheet('http://localhost:8081/fonts/tangerine.css')
+        Promise.all([
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`),
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/cabin.css`),
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`),
+          contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
+        ]).then(() => {
+          console.log('font loading complete')
+        })
       })
     }
   },
