@@ -73,7 +73,7 @@ $ratio: 375 / 10;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-break: keep-all;
+  word-break: keep-all; // 保持所有单词样式不换行
 }
 
 @mixin scroll {

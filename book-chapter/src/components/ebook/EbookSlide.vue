@@ -5,8 +5,17 @@
         <transition name="slide-right">
           <div class="content" v-if="settingVisible === 3">
             <div class="content-page-wrapper">
-              <div class="content-page"></div>
-              <div class="content-page-tab"></div>
+              <div class="content-page">
+                <component :is="currentTab ===1 ? content: bookmark"></component>
+              </div>
+              <div class="content-page-tab">
+                <div class="content-page-tab-item" :class="{'selected' : currentTab===1}" @click="selectTab(1)">
+                  {{$t('book.navigation')}}
+                </div>
+                <div class="content-page-tab-item" :class="{'selected' : currentTab===2}" @click="selectTab(2)">
+                  {{$t('book.bookmark')}}
+                </div>
+              </div>
             </div>
           </div>
         </transition>
@@ -18,21 +27,31 @@
 </template>
 
 <script>
-
+import EbookSlideContents from './EbookSlideContents'
 import {ebookMixin} from "@/utils/mixin"
 
 export default {
   name: 'EbookSlide',
   mixins: [ebookMixin],
   data() {
-    return {};
+    return {
+      currentTab: 1, // 1 为 navigation, 2为bookamrk,
+      bookmark: null,
+      content: EbookSlideContents
+
+    };
   },
   components: {
     // ComName: () => import( "./views/ExperienceDetails")
+    EbookSlideContents
   },
   methods: {
     hide() {
       this.hideTitleAndMenu()
+    },
+    selectTab(tab) {
+      this.currentTab = tab
+      console.log('selected tab ', this.currentTab === 1 ? 'Contents' : 'Bookmark')
     }
   }
 };
@@ -72,7 +91,7 @@ export default {
         flex: 0 0 px2rem(48);
         width: 100%;
         height: px2rem(48);
-
+        /*background: yellow;*/
         .content-page-tab-item {
           flex: 1;
           font-size: px2rem(12);

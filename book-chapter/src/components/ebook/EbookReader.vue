@@ -126,6 +126,17 @@ export default {
         event.stopPropagation() // 禁止事件传播
       })
     },
+    parseBook() {
+      this.book.loaded.cover.then(cover => {
+        this.book.archive.createUrl(cover).then(url => {
+          this.setCover(url)
+          console.log(url)
+        })
+      })
+      this.book.loaded.metadata.then(metadata => {
+        this.setMetadata(metadata)
+      })
+    },
     initEpub() {
       const url = process.env.VUE_APP_EPUB_URL + '/' + this.fileName + '.epub'
       // console.log('url', url)
@@ -133,6 +144,7 @@ export default {
       this.setCurrentBook(this.book)
       this.initRendition()
       this.initGesture()
+      this.parseBook()
       this.book.ready.then(() => {
         return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16)) // 进行分页
       }).then(locations => {

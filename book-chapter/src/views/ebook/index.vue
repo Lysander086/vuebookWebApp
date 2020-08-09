@@ -30,7 +30,7 @@ export default {
       }
       // 开启定时任务，每秒更新一次阅读时间，每30秒记录一次阅读时间
       this.task = setInterval(() => {
-        readTime += 1000 * 60
+        readTime += 60 // readTime 单位为秒
         saveReadTime(this.fileName, readTime)
       }, 1000 * 60)
     }
