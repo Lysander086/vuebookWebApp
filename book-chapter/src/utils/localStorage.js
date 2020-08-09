@@ -1,4 +1,5 @@
 import Storage from 'web-storage-cache'
+import {lengthLocalForage} from "@/utils/localForage"
 
 const localStorage = new Storage()
 

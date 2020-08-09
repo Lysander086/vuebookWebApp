@@ -102,10 +102,15 @@ export function removeAllCss() {
 
 export function getReadTimeByMinute(fileName) {
   const readTime = getReadTime(fileName)
-  if (!readTime) {
+  // console.log('readTime get:' , readTime)
+  return formatTime_min(readTime)
+}
+
+export function formatTime_min(readTime_milliSecond) {
+  if (!readTime_milliSecond) {
     return 0
   } else {
-    return Math.ceil(readTime / 60)
+    return Math.ceil(readTime_milliSecond / 60)
   }
 }
 

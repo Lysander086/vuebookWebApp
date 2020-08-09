@@ -158,43 +158,21 @@ export const ebookMixin = {
           addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
           break
       }
-      console.log('theme style files load complete')
+      // console.log('theme style files load complete')
     },
     refreshLocation() {
       const currentLocation = this.currentBook.rendition.currentLocation()
-      // console.log(currentLocation)
-      if (currentLocation && currentLocation.start) {
-        const startCfi = currentLocation.start.cfi
-        const progress = this.currentBook.locations.percentageFromCfi(startCfi)
-        // console.log(progress)
-        this.setProgress(Math.floor(progress * 100))
-        this.setSection(currentLocation.start.index)
-        saveLocation(this.fileName, startCfi)
-        const bookmark = getBookmark(this.fileName)
-        if (bookmark) {
-          if (bookmark.some(item => item.cfi === startCfi)) {
-            this.setIsBookmark(true)
-          } else {
-            this.setIsBookmark(false)
-          }
-        } else {
-          this.setIsBookmark(false)
-        }
-        if (this.pagelist) {
-          const totalPage = this.pagelist.length
-          const currentPage = currentLocation.start.location
-          if (currentPage && currentPage > 0) {
-            this.setPaginate(currentPage + ' / ' + totalPage)
-          } else {
-            this.setPaginate('')
-          }
-        } else {
-          this.setPaginate('')
-        }
-      }
+      const startCfi = currentLocation.start.cfi
+      const progress = this.currentBook.locations.percentageFromCfi(startCfi)
+      // console.log('progress: ', progress)
+      this.setProgress(Math.floor(progress * 100))
+      this.setSection(currentLocation.start.index)
+      saveLocation(this.fileName, startCfi)
+      // console.log('location saved: ' ,startCfi)
     },
     display(target, cb) {
       if (target) {
+        // console.log('target location: ' , target)
         this.currentBook.rendition.display(target).then(() => {
           this.refreshLocation()
           if (cb) cb()
@@ -212,7 +190,9 @@ export const ebookMixin = {
       this.setFontFamilyVisible(false)
     },
     getReadTimeText() {
-      return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
+      // return 'abc'
+      let res = this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
+      return res
     }
   }
 }

@@ -63,7 +63,9 @@ export default {
     },
     displayProgress() {
       const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
-      this.display(cfi)
+      this.display(cfi, () => {
+        // this.refreshLocation()
+      })
     },
     updateProgressBg() {
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
@@ -85,12 +87,16 @@ export default {
     displaySection() {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
-        this.display(sectionInfo.href)
+        this.display(sectionInfo.href, () => {
+          // this.refreshLocation()
+          // console.log(sectionInfo.href)
+        })
       }
+
     }
   },
 
-  updated() {
+  updated() {  // 设置拖动的时候 进度条效果能够展现
     this.updateProgressBg()
   }
 }

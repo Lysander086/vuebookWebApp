@@ -16,6 +16,7 @@ module.exports = {
     ? './'
     : '/',
   devServer: {
+
     /*
     before(app) {
       mock(app, '/book/home', homeData)

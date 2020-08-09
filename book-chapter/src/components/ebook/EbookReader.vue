@@ -28,11 +28,15 @@ export default {
 
   methods: {
     prevPage() {
-      this.rendition && this.rendition.prev()
+      this.rendition && this.rendition.prev().then(() => {
+        this.refreshLocation()
+      })
       this.hideTitleAndMenu()
     },
     nextPage() {
-      this.rendition && this.rendition.next()
+      this.rendition && this.rendition.next().then(() => {
+        this.refreshLocation()
+      })
       this.hideTitleAndMenu()
     },
     toggleTitleAndMenu() {
@@ -87,6 +91,7 @@ export default {
         method: 'default'
       })
       const location = getLocation(this.fileName)
+      // console.log('location get: ', location)
       this.display(location, () => {
         this.initTheme()
         this.initFontSize()
@@ -104,12 +109,6 @@ export default {
       })
     },
     initGesture() {
-      this.rendition.display().then(() => {
-        this.initFontSize()
-        this.initFontFamily()
-        this.initTheme()
-        this.initGlobalStyle()
-      })
       // console.log(this.rendition)
       this.rendition.on('touchstart', event => {
         // console.log(event)
@@ -133,21 +132,22 @@ export default {
       })
     },
     initEpub() {
-      const url = ' http://192.168.3.10:8081/epub/' + this.fileName + '.epub'
+      const url = process.env.VUE_APP_EPUB_URL + '/' + this.fileName + '.epub'
+      // console.log('url', url)
       this.book = new Epub(url)
       this.setCurrentBook(this.book)
       this.initRendition()
       this.initGesture()
       this.book.ready.then(() => {
-        return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
+        return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16)) // 进行分页
       }).then(locations => {
         // console.log(locations)
         this.setBookAvailable(true)
+        this.refreshLocation()
       })
     }
   },
   mounted() {
-    // 测试用url: http://localhost:8080/ebook/History%7Ctry
     const fileName = this.$route.params.fileName.split('|').join('/')
     this.setFileName(fileName).then(() => {
       this.initEpub()
