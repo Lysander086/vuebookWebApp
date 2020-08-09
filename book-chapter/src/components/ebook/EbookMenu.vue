@@ -20,6 +20,7 @@
     <ebook-setting-font-popup></ebook-setting-font-popup>
     <ebook-setting-theme></ebook-setting-theme>
     <ebook-setting-progress></ebook-setting-progress>
+    <ebook-slide></ebook-slide>
   </div>
 </template>
 
@@ -40,7 +41,8 @@ export default {
   },
 
   components: {
-    EbookSettingFont, EbookSettingFontPopup, EbookSettingTheme, EbookSettingProgress
+    EbookSettingFont, EbookSettingFontPopup, EbookSettingTheme, EbookSettingProgress,
+    EbookSlide: () => import( "@/components/ebook/EbookSlide")
   },
   methods: {
     showSetting(key) {

@@ -44,12 +44,7 @@ export default {
       this.setMenuVisible(!this.menuVisible)
       this.fontFamilyVisible && this.setFontFamilyVisible(false)
     },
-    hideTitleAndMenu() {
-      // console.log('hideTitleAndMenu')
-      this.setMenuVisible(false)
-      this.setSettingVisible(-1)
-      this.setFontFamilyVisible(false)
-    },
+
     // 实现字体大小缓存
     initFontSize() {
       let fontSize = getFontSize(this.fileName)
