@@ -160,6 +160,34 @@ export default {
       this.initEpub()
     })
 
+    const nav = [
+      {
+        id: 1,
+        subItems: [{
+          id: 2,
+          subItems: [{
+            id: 3,
+            subItems: []
+          }]
+        }]
+      }, {
+        id: 4,
+        subItems: []
+      },
+      {
+        id: 5,
+        subItems: [{
+          id: 6,
+          subItems: []
+        }]
+      }
+    ]
+
+    function flatten(array) {
+      return [].concat(...array.map(item => [].concat(item, ...flatten(item.subItems))))
+    }
+
+    console.log('flattened nav', flatten(nav))
   },
   data() {
     return {};
