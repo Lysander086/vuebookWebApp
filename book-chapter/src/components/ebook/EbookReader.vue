@@ -8,6 +8,8 @@
 <script>
 import Epub from 'epubjs'
 import {ebookMixin} from "@/utils/mixin"
+import {flatten} from '@/utils/book'
+
 import {
   getFontFamily,
   getFontSize,
@@ -136,6 +138,18 @@ export default {
       this.book.loaded.metadata.then(metadata => {
         this.setMetadata(metadata)
       })
+      this.book.loaded.navigation.then(nav => {
+        const navItem = flatten(nav.toc)
+        // 解决层级判断问题
+        console.log('start navItem' ,navItem)
+        function find(item, level = 0) {
+          return !item.parent ? level : find(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
+        }
+        navItem.forEach(item=>{
+          item.level = find(item)
+        })
+        console.log(navItem)
+      })
     },
     initEpub() {
       const url = process.env.VUE_APP_EPUB_URL + '/' + this.fileName + '.epub'
@@ -159,35 +173,6 @@ export default {
     this.setFileName(fileName).then(() => {
       this.initEpub()
     })
-
-    const nav = [
-      {
-        id: 1,
-        subItems: [{
-          id: 2,
-          subItems: [{
-            id: 3,
-            subItems: []
-          }]
-        }]
-      }, {
-        id: 4,
-        subItems: []
-      },
-      {
-        id: 5,
-        subItems: [{
-          id: 6,
-          subItems: []
-        }]
-      }
-    ]
-
-    function flatten(array) {
-      return [].concat(...array.map(item => [].concat(item, ...flatten(item.subItems))))
-    }
-
-    console.log('flattened nav', flatten(nav))
   },
   data() {
     return {};
