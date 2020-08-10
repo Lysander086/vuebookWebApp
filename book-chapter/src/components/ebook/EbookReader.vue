@@ -132,23 +132,25 @@ export default {
       this.book.loaded.cover.then(cover => {
         this.book.archive.createUrl(cover).then(url => {
           this.setCover(url)
-          console.log(url)
         })
       })
       this.book.loaded.metadata.then(metadata => {
         this.setMetadata(metadata)
       })
       this.book.loaded.navigation.then(nav => {
+        // console.log('nav.toc: ', nav.toc)
         const navItem = flatten(nav.toc)
+
         // 解决层级判断问题
-        console.log('start navItem' ,navItem)
         function find(item, level = 0) {
           return !item.parent ? level : find(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
         }
-        navItem.forEach(item=>{
+
+        navItem.forEach(item => {
           item.level = find(item)
         })
-        console.log(navItem)
+        // console.log('result navItem: ', navItem)
+        this.setNavigation(navItem)
       })
     },
     initEpub() {

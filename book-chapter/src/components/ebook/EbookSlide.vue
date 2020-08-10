@@ -51,7 +51,7 @@ export default {
     },
     selectTab(tab) {
       this.currentTab = tab
-      console.log('selected tab ', this.currentTab === 1 ? 'Contents' : 'Bookmark')
+      // console.log('selected tab ', this.currentTab === 1 ? 'Contents' : 'Bookmark')
     }
   }
 };

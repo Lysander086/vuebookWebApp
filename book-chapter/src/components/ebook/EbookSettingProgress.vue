@@ -40,13 +40,8 @@ export default {
   mixins: [ebookMixin],
   computed: {
     getSectionName() {
-      if (this.section) {
-        const sectionInfo = this.currentBook.section(this.section)
-        if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation) {
-          return this.currentBook.navigation.get(sectionInfo.href).label
-        }
-      }
-      // return ''
+      console.log('this.section: ', this.section)
+      return this.section ? this.navigation[this.section].label : ''
     }
   },
   methods: {

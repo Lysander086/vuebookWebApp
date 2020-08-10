@@ -12,7 +12,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (`${process.env.VUE_APP_MODE}` === 'dev' && to.params && !to.params.fileName) {
         // to.params.fileName = 'History|try'
-        to.params.fileName = 'History|attempt'
+        to.params.fileName = 'LifeSciences|attempt3'
       }
       next()
     },
