@@ -22,6 +22,10 @@ export default {
       default: false
     }
   },
+  mounted() {
+    this.refresh()
+    console.log( )
+  },
   methods: {
     handleScroll(e) {
       const offsetY = e.target.scrollTop || window.pageYOffset || document.body.scrollTop
@@ -37,9 +41,7 @@ export default {
       }
     }
   },
-  mounted() {
-    this.refresh()
-  }
+
 }
 </script>
 

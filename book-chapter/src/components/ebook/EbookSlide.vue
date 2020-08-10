@@ -4,7 +4,7 @@
       <div class="slide-content-wrapper" v-show="menuVisible && settingVisible === 3">
         <transition name="slide-right">
           <div class="content" v-if="settingVisible === 3">
-            <div class="content-page-wrapper">
+            <div class="content-page-wrapper" v-if="bookAvailable">
               <div class="content-page">
                 <component :is="currentTab ===1 ? content: bookmark"></component>
               </div>
@@ -17,6 +17,9 @@
                 </div>
               </div>
             </div>
+            <div class="content-empty" v-else>
+              <ebook-loading></ebook-loading>
+            </div>
           </div>
         </transition>
         <div class="content-bg" @click="hide()"></div>
@@ -28,6 +31,7 @@
 
 <script>
 import EbookSlideContents from './EbookSlideContents'
+import EbookLoading from "@/components/ebook/EbookLoading"
 import {ebookMixin} from "@/utils/mixin"
 
 export default {
@@ -43,7 +47,7 @@ export default {
   },
   components: {
     // ComName: () => import( "./views/ExperienceDetails")
-    EbookSlideContents
+    EbookSlideContents, EbookLoading
   },
   methods: {
     hide() {
