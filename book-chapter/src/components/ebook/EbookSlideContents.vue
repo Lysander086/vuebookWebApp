@@ -68,8 +68,20 @@ export default {
     }
   },
   mounted() {
-    // console.log('navigation: ', this.navigation)
-    // console.log(this.navigation[0])
+    // 二维数组降维运算讲解
+    /*
+    this.currentBook.ready.then(() => {
+      this.doSearch('added').then(results => {
+        console.log(results)
+      })
+    })
+     */
+    const a = [1, 2, 3]
+    const b = [4, 5, 6]
+    const c = [a, b]
+    // console.log([].concat.apply(c)) // dont work
+    console.log([].concat.apply([], c))
+
   },
   methods: {
     search() {
@@ -89,7 +101,11 @@ export default {
               section => section.load(this.currentBook.load.bind(this.currentBook))
                   .then(section.find.bind(section, q))
                   .finally(section.unload.bind(section)))
-      ).then(results => Promise.resolve([].concat.apply([], results)))
+      )
+          .then(results => {
+            console.log(results)
+            Promise.resolve([].concat.apply([], results))
+          })
     },
     displayContent(target, highlight = false) {
       this.display(target, () => {

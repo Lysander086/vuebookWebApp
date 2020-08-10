@@ -40,7 +40,7 @@ export default {
   mixins: [ebookMixin],
   computed: {
     getSectionName() {
-      console.log('this.section: ', this.section)
+      // console.log('this.section: ', this.section)
       return this.section ? this.navigation[this.section].label : ''
     }
   },
